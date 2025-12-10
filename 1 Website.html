@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PSARB – Pakistan Space Activities Regulatory Board</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    :root {
+      --primary: #004b8d;
+      --primary-light: #0b72c4;
+      --primary-dark: #003764;
+
+      --bg: #f4f6fb;
+      --bg-card: #ffffff;
+      --border: #d0d7e2;
+      --text-main: #111827;
+      --text-muted: #4b5563;
+      --text-soft: #6b7280;
+
+      --radius: 8px;
+      --radius-lg: 12px;
+      --shadow-soft: 0 6px 18px rgba(15, 23, 42, 0.08);
+      --nav-height: 64px;
+
+      /* Sector colors */
+      --satcom: #0f766e;
+      --eo: #2563eb;
+      --pnt: #9333ea;
+      --space-trans: #ea580c;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #e3edf9 0, #f4f6fb 55%);
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    a { color: var(--primary-light); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    img { max-width: 100%; }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 16px 48px;
+    }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: -999px;
+      background: #ffffff;
+      color: #000;
+      padding: 8px 12px;
+      z-index: 1000;
+    }
+    .skip-link:focus {
+      left: 16px;
+      top: 16px;
+      box-shadow: var(--shadow-soft);
+      border-radius: 4px;
+    }
+
+    /* Header / Nav */
+    .navbar-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(208, 215, 226, 0.7);
+    }
+
+    .navbar {
+      max-width: 1180px;
+      margin: 0 auto;
+      height: var(--nav-height);
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-img {
+      height: 44px;
+      width: auto;
+      display: block;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-text-main {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    .logo-text-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 13px;
+    }
+
+    .nav-links a {
+      padding: 4px 0;
+      color: var(--text-soft);
+      border-bottom: 2px solid transparent;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+      border-bottom-color: var(--primary-light);
+      text-decoration: none;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 13px;
+      cursor: pointer;
+      background: transparent;
+      color: var(--primary);
+      transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.05s ease;
+    }
+    .btn:hover {
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+      transform: translateY(-0.5px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #ffffff;
+      border-color: transparent;
+    }
+
+    .btn-outline {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: #ffffff;
+    }
+    .btn-outline:hover { background: #e5effa; }
+
+    .nav-toggle {
+      display: none;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      font-size: 13px;
+      background: #ffffff;
+    }
+
+    @media (max-width: 880px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: var(--nav-height);
+        background: #ffffff;
+        border-bottom: 1px solid var(--border);
+        padding: 8px 16px 10px;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: inline-flex; }
+    }
+
+    /* Hero */
+    .hero {
+      padding: 24px 0 20px;
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.8fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: clamp(26px, 2.8vw + 12px, 34px);
+      font-weight: 650;
+      margin: 0 0 8px;
+      color: var(--primary-dark);
+    }
+
+    .hero-tagline {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--primary);
+      margin: 0 0 8px;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      max-width: 640px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .hero-meta {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top left, #e0edff 0, #ffffff 60%);
+      border-radius: 14px;
+      padding: 16px;
+      border: 1px solid rgba(208, 215, 226, 0.7);
+      box-shadow: var(--shadow-soft);
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .hero-card h2 {
+      margin: 0 0 6px;
+      font-size: 15px;
+      color: var(--primary-dark);
+    }
+
+    .hero-card-list {
+      margin: 6px 0 0;
+      padding-left: 18px;
+    }
+    .hero-card-list li { margin-bottom: 4px; }
+
+    /* Sections / cards / grids */
+    section { margin-top: 32px; }
+
+    section h2 {
+      font-size: 18px;
+      margin: 0 0 4px;
+    }
+
+    .section-intro {
+      font-size: 13px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      box-shadow: var(--shadow-soft);
+      font-size: 13px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .sector-card h3 {
+      font-size: 14px;
+      margin: 0 0 4px;
+      color: var(--primary-dark);
+    }
+
+    .sector-card p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 13px;
+    }
+
+    .sector-meta {
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    ul.clean, ol.clean {
+      margin: 6px 0;
+      padding-left: 20px;
+    }
+    ul.clean li, ol.clean li { margin-bottom: 4px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 6px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f0f3fa;
+      font-weight: 500;
+    }
+
+    /* Notices */
+    .notice-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 13px;
+    }
+    .notice-item {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      box-shadow: var(--shadow-soft);
+    }
+    .notice-title {
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    .notice-meta {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+    .badge-status {
+      align-self: flex-start;
+      padding: 3px 6px;
+      font-size: 11px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--text-soft);
+      white-space: nowrap;
+    }
+    .badge-status.draft {
+      border-color: #e3a008;
+      color: #92400e;
+    }
+    .badge-status.final {
+      border-color: #16a34a;
+      color: #166534;
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .contact-form label {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 2px;
+      color: var(--text-soft);
+    }
+
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+      width: 100%;
+      padding: 6px 8px;
+      margin-bottom: 8px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus,
+    .contact-form select:focus {
+      outline: 2px solid var(--primary-light);
+      outline-offset: 1px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 32px;
+      padding-top: 12px;
+      font-size: 12px;
+      color: var(--text-soft);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+    }
+
+    /* APPLICATION CENTER (embedded in licensing section) */
+
+    .app-shell {
+      margin-top: 10px;
+    }
+
+    .app-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .app-tab {
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-size: 13px;
+      border: 1px solid transparent;
+      background: rgba(15, 23, 42, 0.03);
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, transform 0.05s ease;
+    }
+
+    .app-tab span.icon { font-size: 15px; }
+
+    .app-tab[data-sector="satcom"].active {
+      background: linear-gradient(135deg, var(--satcom), #14b8a6);
+      color: #ffffff;
+      box-shadow: var(--shadow-soft);
+    }
+    .app-tab[data-sector="eo"].active {
+      background: linear-gradient(135deg, var(--eo), #38bdf8);
+      color: #ffffff;
+      box-shadow: var(--shadow-soft);
+    }
+    .app-tab[data-sector="pnt"].active {
+      background: linear-gradient(135deg, var(--pnt), #f97316);
+      color: #ffffff;
+      box-shadow: var(--shadow-soft);
+    }
+    .app-tab[data-sector="space-trans"].active {
+      background: linear-gradient(135deg, var(--space-trans), #facc15);
+      color: #ffffff;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .app-tab:not(.active):hover {
+      background: rgba(15, 23, 42, 0.06);
+      transform: translateY(-0.5px);
+    }
+
+    .app-panels {
+      position: relative;
+    }
+
+    .app-panel {
+      display: none;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 16px 16px 18px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      margin-top: 2px;
+    }
+
+    .app-panel.active { display: block; }
+
+    .app-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .app-panel-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .app-panel-sub {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .app-tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.04);
+      color: var(--text-soft);
+    }
+
+    .app-panel[data-sector="satcom"] { border-top: 3px solid var(--satcom); }
+    .app-panel[data-sector="eo"] { border-top: 3px solid var(--eo); }
+    .app-panel[data-sector="pnt"] { border-top: 3px solid var(--pnt); }
+    .app-panel[data-sector="space-trans"] { border-top: 3px solid var(--space-trans); }
+
+    /* Collapsible sections in forms */
+    .collapsible {
+      border-radius: 12px;
+      border: 1px solid #e0e4f0;
+      margin-top: 10px;
+      overflow: hidden;
+      background: #f9fafb;
+    }
+
+    .collapsible-header {
+      padding: 9px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      background: linear-gradient(to right, rgba(15,23,42,0.02), rgba(15,23,42,0.04));
+    }
+
+    .collapsible-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .collapsible-title {
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .collapsible-tag {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      color: var(--text-soft);
+    }
+
+    .collapsible-icon {
+      font-size: 14px;
+      color: var(--text-soft);
+      transition: transform 0.15s ease;
+    }
+
+    .collapsible.open .collapsible-icon {
+      transform: rotate(90deg);
+    }
+
+    .collapsible-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease;
+      padding: 0 10px;
+    }
+
+    .collapsible.open .collapsible-body {
+      padding: 8px 10px 10px;
+    }
+
+    /* Form elements */
+    form { font-size: 13px; }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 16px;
+    }
+
+    .form-grid-1 {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    label span.required {
+      color: #b91c1c;
+      margin-left: 4px;
+    }
+
+    input, select, textarea {
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      padding: 6px 9px;
+      font-size: 13px;
+      font-family: inherit;
+      background: #ffffff;
+      transition: border-color 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+      background: #ffffff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    .help-text {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .section-note {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 6px;
+    }
+
+    .form-actions {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .status-chip {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #6b7280;
+    }
+
+    .status-chip span {
+      font-weight: 500;
+      color: var(--primary-dark);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 780px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: minmax(0, 1fr); }
+      .grid-4 { grid-template-columns: minmax(0, 1fr); }
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-grid-2 { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 520px) {
+      .hero-actions { flex-direction: column; }
+      .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<div class="navbar-wrap">
+  <header class="navbar" aria-label="Main header">
+    <div class="navbar-left">
+      <img src="psarb_logo.png" alt="PSARB logo" class="logo-img">
+      <div class="logo-text">
+        <span class="logo-text-main">Pakistan Space Activities Regulatory Board</span>
+        <span class="logo-text-sub">National framework for Satcom, EO, PNT &amp; Space Transportation</span>
+      </div>
+    </div>
+
+    <nav class="nav-links" id="navLinks" aria-label="Primary navigation">
+      <a href="#home">Home</a>
+      <a href="#sectors">Sectors</a>
+      <a href="#regulations">Regulations</a>
+      <a href="#licensing">Licensing &amp; Applications</a>
+      <a href="#notices">Notices</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav-right">
+      <button class="btn-outline btn"
+              onclick="document.getElementById('licensing').scrollIntoView({behavior:'smooth'})">
+        Start application
+      </button>
+      <button class="btn btn-primary">
+        Operator portal (placeholder)
+      </button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">Menu</button>
+    </div>
+  </header>
+</div>
+
+<main class="page" id="main">
+  <!-- HERO -->
+  <section id="home" class="hero" aria-labelledby="hero-heading">
+    <div>
+      <p class="hero-tagline">
+        National framework for Satellite Communications, Earth Observation, PNT &amp; Space Transportation
+      </p>
+      <h1 id="hero-heading" class="hero-title">
+        Gateway to Space Regulations in Pakistan
+      </h1>
+      <p class="hero-subtitle">
+        Pakistan Space Activities Regulatory Board (PSARB) is established under the Pakistan Space Activities
+        Rules&nbsp;2024 as the national authority to authorize and supervise space and upper-atmosphere activities
+        that have a link with Pakistan.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-primary"
+                onclick="document.getElementById('regulations').scrollIntoView({behavior:'smooth'})">
+          View regulations
+        </button>
+        <button class="btn btn-outline"
+                onclick="document.getElementById('licensing').scrollIntoView({behavior:'smooth'})">
+          Apply for authorization
+        </button>
+      </div>
+      <div class="hero-meta">
+        For satellite operators, EO providers, PNT services and launch operators seeking clarity on Pakistan’s
+        regulatory framework.
+      </div>
+    </div>
+
+    <aside class="hero-card" aria-label="Key areas">
+      <h2>Key areas on this site</h2>
+      <ul class="hero-card-list">
+        <li><strong>About us</strong> – mandate and establishment of PSARB.</li>
+        <li><strong>Space legislation</strong> – Rules and sector regulations for Satcom, EO, PNT and Space Transportation.</li>
+        <li><strong>Licensing &amp; applications</strong> – online forms for each sector.</li>
+        <li><strong>Media Center</strong> – public notices, consultations and tenders.</li>
+        <li><strong>Contact</strong> – enquiry form and sector focal points.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- QUICK OVERVIEW CARDS -->
+  <section aria-label="Overview">
+    <div class="grid-3">
+      <div class="card">
+        <h3>About us</h3>
+        <p class="section-intro" style="margin-bottom:0;">
+          PSARB is the national space regulatory authority mandated to oversee outer space and upper-atmosphere
+          activities, implementing the Space Activities Rules&nbsp;2024 in coordination with national institutions.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Space legislation</h3>
+        <p class="section-intro" style="margin-bottom:0;">
+          Space Activities Rules provide the umbrella framework. Sector-specific regulations govern Satcom landing
+          rights, Earth Observation, PNT services and Space Transportation authorizations.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Registration</h3>
+        <p class="section-intro" style="margin-bottom:0;">
+          Registration with PSARB requires prior incorporation with SECP (where applicable). Operators create an
+          online profile and then submit sector-specific applications.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTORS -->
+  <section id="sectors" aria-labelledby="sectors-heading">
+    <h2 id="sectors-heading">Regulatory sectors</h2>
+    <p class="section-intro">
+      PSARB regulates four core domains. Each sector has specific eligibility criteria, application requirements
+      and compliance obligations.
+    </p>
+
+    <div class="grid-4">
+      <div class="card sector-card" style="border-top:3px solid var(--satcom);">
+        <h3>Satellite Communications (Satcom)</h3>
+        <p>
+          Landing rights and registration for communication payloads providing services into Pakistan,
+          including FSS, BSS and broadband constellations.
+        </p>
+        <div class="sector-meta">
+          Focus: landing rights, spectrum coordination, quality of service.
+        </div>
+      </div>
+      <div class="card sector-card" style="border-top:3px solid var(--eo);">
+        <h3>Earth Observation (EO)</h3>
+        <p>
+          Licensing of EO missions and data services that acquire, process or distribute imagery and data
+          relating to Pakistan.
+        </p>
+        <div class="sector-meta">
+          Focus: data policy, security controls, downstream services.
+        </div>
+      </div>
+      <div class="card sector-card" style="border-top:3px solid var(--pnt);">
+        <h3>Positioning, Navigation &amp; Timing (PNT)</h3>
+        <p>
+          Authorization for GNSS augmentation and PNT services supporting critical infrastructure, safety
+          and commercial applications.
+        </p>
+        <div class="sector-meta">
+          Focus: integrity, continuity, resilience.
+        </div>
+      </div>
+      <div class="card sector-card" style="border-top:3px solid var(--space-trans);">
+        <h3>Space Transportation</h3>
+        <p>
+          Licensing of launch, re-entry and related space transportation activities with a nexus to Pakistan,
+          including payloads and launch services.
+        </p>
+        <div class="sector-meta">
+          Focus: safety, risk management, insurance and international obligations.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGULATIONS LIBRARY -->
+  <section id="regulations" aria-labelledby="regulations-heading">
+    <h2 id="regulations-heading">Regulations library</h2>
+    <p class="section-intro">
+      Central repository for PSARB rules, regulations and guidelines. Official versions should be published as PDFs
+      with concise HTML summaries.
+    </p>
+
+    <div class="card">
+      <table>
+        <thead>
+        <tr>
+          <th>Instrument</th>
+          <th>Sector</th>
+          <th>Reference</th>
+          <th>Download</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Pakistan Space Activities Rules&nbsp;2024</td>
+          <td>Cross-sector</td>
+          <td>S.R.O. [number]/2024</td>
+          <td><a href="#">PDF</a> | <a href="#">HTML summary</a></td>
+        </tr>
+        <tr>
+          <td>Satellite Communications Landing Rights Regulations</td>
+          <td>Satcom</td>
+          <td>S.R.O. [number]/[year]</td>
+          <td><a href="#">PDF</a> | <a href="#">HTML summary</a></td>
+        </tr>
+        <tr>
+          <td>Earth Observation Licensing &amp; Data Policy Regulations</td>
+          <td>EO</td>
+          <td>S.R.O. [number]/[year]</td>
+          <td><a href="#">PDF</a> | <a href="#">HTML summary</a></td>
+        </tr>
+        <tr>
+          <td>PNT Services Authorization Regulations</td>
+          <td>PNT</td>
+          <td>S.R.O. [number]/[year]</td>
+          <td><a href="#">PDF</a> | <a href="#">HTML summary</a></td>
+        </tr>
+        <tr>
+          <td>Space Transportation &amp; Launch Regulations</td>
+          <td>Space Transportation</td>
+          <td>S.R.O. [number]/[year]</td>
+          <td><a href="#">PDF</a> | <a href="#">HTML summary</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- LICENSING & APPLICATIONS (WITH EMBEDDED FORMS) -->
+  <section id="licensing" aria-labelledby="licensing-heading">
+    <h2 id="licensing-heading">Licensing &amp; applications</h2>
+    <p class="section-intro">
+      All licensing applications are submitted electronically. Use the sector tabs below to complete online forms for
+      Satcom, Earth Observation, PNT / GNSS and Space Transportation.
+    </p>
+
+    <section class="app-shell" aria-label="Application forms by sector">
+      <div class="app-tabs" id="appTabs">
+        <button class="app-tab active" data-sector="satcom">
+          <span class="icon">📡</span> Satcom Landing Rights
+        </button>
+        <button class="app-tab" data-sector="eo">
+          <span class="icon">🛰️</span> Earth Observation (EO)
+        </button>
+        <button class="app-tab" data-sector="pnt">
+          <span class="icon">🧭</span> PNT / GNSS
+        </button>
+        <button class="app-tab" data-sector="space-trans">
+          <span class="icon">🚀</span> Space Transportation
+        </button>
+      </div>
+
+      <div class="app-panels">
+        <!-- SATCOM PANEL -->
+        <div class="app-panel active" data-sector="satcom">
+          <div class="app-panel-header">
+            <div>
+              <div class="app-panel-title">Satellite Communications (Satcom) Landing Rights Authorization</div>
+              <div class="app-panel-sub">
+                For GSO and NGSO communication satellites providing services into Pakistan (FSS, BSS, broadband, mobility, IoT).
+              </div>
+            </div>
+            <div class="app-tag">Sector color: Satcom – teal</div>
+          </div>
+
+          <form id="satcomForm">
+            <!-- A: Applicant & ALR -->
+            <div class="collapsible open">
+              <div class="collapsible-header">
+                <div class="collapsible-header-left">
+                  <span class="collapsible-icon">▶</span>
+                  <span class="collapsible-title">A. Applicant &amp; Authorized Local Representative</span>
+                  <span class="collapsible-tag">Common for all sectors</span>
+                </div>
+              </div>
+              <div class="collapsible-body">
+                <p class="section-note">
+                  Provide details of the legal entity responsible for the application and its Authorized Local Representative (ALR) in Pakistan.
+                </p>
+                <div class="form-grid-2">
+                  <label>Applicant legal name <span class="required">*</span>
+                    <input type="text" name="applicant_name" required>
+                  </label>
+                  <label>Country of incorporation <span class="required">*</span>
+                    <input type="text" name="applicant_country" required>
+                  </label>
+                  <label>Company registration / SECP number <span class="required">*</span>
+                    <input type="text" name="secp_number" required>
+                  </label>
+                  <label>NTN / tax identification <span class="required">*</span>
+                    <input type="text" name="ntn" required>
+                  </label>
+                  <label>Registered address <span class="required">*</span>
+                    <input type="text" name="registered_address" required>
+                  </label>
+                  <label>Primary regulatory contact email <span class="required">*</span>
+                    <input type="email" name="reg_email" required>
+                  </label>
+                </div>
+
+                <hr style="margin:10px 0;border:none;border-top:1px dashed #e5e7eb;">
+
+                <div class="form-grid-2">
+                  <label>Is the applicant the satellite operator? <span class="required">*</span>
+                    <select name="is_operator" required>
+                      <option value="">Select…</option>
+                      <option value="yes">Yes – applicant is the operator</option>
+                      <option value="no">No – applicant is a capacity holder / partner</option>
+                    </select>
+                    <div class="help-text">
+                      If not, you must upload evidence of lawful access to the satellite system.
+                    </div>
+                  </label>
+                  <label>Name of satellite operator (if different)
+                    <input type="text" name="operator_name">
+                  </label>
+                </div>
+
+                <div class="form-grid-1">
+                  <label>Authorized Local Representative (ALR) name <span class="required">*</span>
+                    <input type="text" name="alr_name" required>
+                  </label>
+                </div>
+
+                <div class="form-grid-2">
+                  <label>ALR legal status (company / branch / liaison / individual) <span class="required">*</span>
+                    <input type="text" name="alr_status" required>
+                  </label>
+                  <label>ALR registration / CNIC / SECP number <span class="required">*</span>
+                    <input type="text" name="alr_reg_number" required>
+                  </label>
+                  <label>ALR address in Pakistan <span class="required">*</span>
+                    <input type="text" name="alr_address" required>
+                  </label>
+                  <label>ALR email <span class="required">*</span>
+                    <input type="email" name="alr_email" required>
+                  </label>
+                  <label>ALR contact phone <span class="required">*</span>
+                    <input type="tel" name="alr_phone" required>
+                  </label>
+                  <label>Upload ALR appointment letter / power of attorney
+                    <input type="file" name="alr_appointment_doc">
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- B: Satellite System & Mission -->
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <div class="collapsible-header-left">
+                  <span class="collapsible-icon">▶</span>
+                  <span class="collapsible-title">B. Satellite System &amp; Mission Type</span>
+                </div>
+              </div>
+              <div class="collapsible-body">
+                <div class="form-grid-2">
+                  <label>Satellite system name <span class="required">*</span>
+                    <input type="text" name="sat_name" required>
+                  </label>
+                  <label>Constellation / fleet name (if applicable)
+                    <input type="text" name="constellation_name">
+                  </label>
+                  <label>Orbital regime <span class="required">*</span>
+                    <select name="orbital_regime" required>
+                      <option value="">Select…</option>
+                      <option value="gso">GSO</option>
+                      <option value="ngso-leo">NGSO – LEO</option>
+                      <option value="ngso-meo">NGSO – MEO</option>
+                      <option value="ngso-other">NGSO – other</option>
+                    </select>
+                  </label>
+                  <label>State of registry / filing administration <span class="required">*</span>
+                    <input type="text" name="state_registry" required>
+                  </label>
+                </div>
+
+                <div class="form-grid-1">
+                  <label>Mission type(s) <span class="required">*</span>
+                    <select name="mission_types" multiple size="4" required>
+                      <option value="fss">FSS</option>
+                      <option value="bss">BSS</option>
+                      <option value="broadband">Broadband / HTS / VHTS</option>
+                      <option value="mobility">Mobility / ESIM</option>
+                      <option value="iot">IoT / M2M</option>
+                    </select>
+                    <div class="help-text">
+                      Hold Ctrl (Windows) or Cmd (Mac) to select multiple.
+                    </div>
+                  </label>
+
+                  <label>ITU filing reference(s)
+                    <textarea name="itu_filings" rows="2"></textarea>
+                  </label>
+
+                  <label>Planned service start date in Pakistan
+                    <input type="date" name="service_start_date">
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- C: Technical (Space Segment) -->
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <div class="collapsible-header-left">
+                  <span class="collapsible-icon">▶</span>
+                  <span class="collapsible-title">C. Technical Information – Space Segment</span>
+                </div>
+              </div>
+              <div class="collapsible-body">
+                <label>Orbital parameters <span class="required">*</span>
+                  <textarea name="orbital_parameters" rows="3"
+                    placeholder="For GSO: orbital longitude, inclination, station-keeping box…&#10;For NGSO: planes, inclination, altitude, number of satellites per plane, phasing…"
+                    required></textarea>
+                </label>
+                <label>Frequency bands used over Pakistan <span class="required">*</span>
+                  <textarea name="frequency_bands" rows="3"
+                    placeholder="Uplink / downlink bands, bandwidth, polarization, ITU service (FSS / MSS / BSS)…"
+                    required></textarea>
+                </label>
+                <label>Beam footprints &amp; coverage over Pakistan <span class="required">*</span>
+                  <textarea name="beam_footprints" rows="3"
+                    placeholder="Beam IDs, service areas, minimum elevation angles, edge-of-coverage contours…"
+                    required></textarea>
+                </label>
+                <label>Interference mitigation measures <span class="required">*</span>
+                  <textarea name="interference_mitigation" rows="3"
+                    placeholder="Coexistence measures, ITU coordination status, shut-down procedures…"
+                    required></textarea>
+                </label>
+              </div>
+            </div>
+
+            <!-- D: Pakistan Operations & Routing -->
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <div class="collapsible-header-left">
+                  <span class="collapsible-icon">▶</span>
+                  <span class="collapsible-title">D. Pakistan Operations, Gateways &amp; Routing</span>
+                </div>
+              </div>
+              <div class="collapsible-body">
+                <label>Intended service types in Pakistan
+                  <textarea name="service_types_pak" rows="3"
+                    placeholder="Capacity for broadband, backhaul, DTH, contribution links, mobility, IoT/M2M, etc."></textarea>
+                </label>
+
+                <div class="form-grid-2">
+                  <label>Will a gateway / hub be established in Pakistan?
+                    <select name="pak_gateway">
+                      <option value="">Select…</option>
+                      <option value="yes">Yes – local gateway / teleport</option>
+                      <option value="no">No – foreign gateway / equivalent</option>
+                    </select>
+                  </label>
+                  <label>Pakistan traffic routed via sensitive jurisdictions?
+                    <select name="sensitive_jurisdictions_confirmation" required>
+                      <option value="">Select…</option>
+                      <option value="confirm">No – no sensitive jurisdictions</option>
+                      <option value="explain">Yes – details provided below</option>
+                    </select>
+                  </label>
+                </div>
+
+                <label>Details of gateways / POPs and routing paths
+                  <textarea name="gateway_details" rows="3"></textarea>
+                </label>
+
+                <label>Details if sensitive jurisdictions are involved
+                  <textarea name="sensitive_jurisdictions_explanation" rows="3"></textarea>
+                </label>
+              </div>
+            </div>
+
+            <!-- E: Security, Compliance & Declaration -->
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <div class="collapsible-header-left">
+                  <span class="collapsible-icon">▶</span>
+                  <span class="collapsible-title">E. Security, Compliance &amp; Declaration</span>
+                </div>
+              </div>
+              <div class="collapsible-body">
+                <label>National security &amp; cybersecurity statement
+                  <textarea name="security_statement" rows="3"
+                    placeholder="Internal access control, logging, incident response, encryption standards…"></textarea>
+                </label>
+
+                <label>Data governance statement (Pakistan-related data)
+                  <textarea name="data_governance" rows="3"></textarea>
+                </label>
+
+                <div class="form-grid-2">
+                  <label>Sanctions / restrictions affecting applicant or operator? <span class="required">*</span>
+                    <select name="sanctions_status" required>
+                      <option value="">Select…</option>
+                      <option value="no">No</option>
+                      <option value="yes">Yes (details below)</option>
+                    </select>
+                  </label>
+                  <label>If yes, provide details
+                    <textarea name="sanctions_details" rows="2"></textarea>
+                  </label>
+                </div>
+
+                <label>Declaration
+                  <textarea name="declaration" rows="4" readonly>
+The undersigned declares that all information provided in this application is true, complete and accurate in all material respects, and undertakes to notify PSARB of any material change affecting this application or any authorization that may be granted.
+                  </textarea>
+                </label>
+
+                <div class="form-grid-2">
+                  <label>Authorized signatory name <span class="required">*</span>
+                    <input type="text" name="signatory_name" required>
+                  </label>
+                  <label>Designation <span class="required">*</span>
+                    <input type="text" name="signatory_designation" required>
+                  </label>
+                  <label>Date <span class="required">*</span>
+                    <input type="date" name="sign_date" required>
+                  </label>
+                  <label>Digital signature / seal (upload)
+                    <input type="file" name="sign_seal">
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <span class="status-chip">
+                Draft status: <span>Not submitted</span>
+              </span>
+              <button type="button" class="btn-outline"
+                      onclick="alert('Draft saved locally (demo). Connect to backend in production.')">
+                Save draft (demo)
+              </button>
+              <button type="submit" class="btn btn-primary">
+                Submit Satcom application (demo)
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- EO PANEL -->
+        <div class="app-panel" data-sector="eo">
+          <div class="app-panel-header">
+            <div>
+              <div class="app-panel-title">Earth Observation (EO) Landing Rights Authorization</div>
+              <div class="app-panel-sub">
+                For EO missions and data services acquiring, processing or distributing imagery related to Pakistan.
+              </div>
+            </div>
+            <div class="app-tag">Sector color: EO – blue</div>
+          </div>
+
+          <form id="eoForm">
+            <div class="collapsible open">
+              <div class="collapsible-header">
+                <div class="collapsible-header-left">
+                  <span class="collapsible-icon">▶</span>
+                  <span class="collapsible-title">A. Applicant &amp; ALR (summary)</span>
+                  <span class="collapsible-tag">Can be reused from Satcom</span>
+                </div>
+              </div>
+              <div class="collapsible-body">
+                <p class="section-note">
+                  If you already have a PSARB operator profile, this section will be pre-filled.
+                </p>
+                <div class="form-grid-2">
+                  <label>Applicant legal name <span class="required">*</span>
+                    <input type="text" name="eo_applicant_name" required>
+                  </label>
+                  <label>Country of incorporation <span class="required">*</span>
+                    <input type="text" name="eo_country" required>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <div class="collapsible-header-left">
+                  <span class="collapsible-icon">▶</span>
+                  <span class="collapsible-title">B. EO System &amp; Mission</span>
+                </div>
+              </div>
+              <div class="collapsible-body">
+                <div class="form-grid-2">
+                  <label>EO satellite / constellation name <span class="required">*</span>
+                    <input type="text" name="eo_sat_name" required>
+                  </label>
+                  <label>Orbital regime <span class="required">*</span>
+                    <select name="eo_orbit" required>
+                      <option value="">Select…</option>
+                      <option value="leo">LEO</option>
+                      <option value="meo">MEO</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </label>
+                </div>
+                <label>Mission description &amp; primary objectives <span class="required">*</span>
+                  <textarea name="eo_mission_desc" rows="3" required></textarea>
+                </label>
+              </div>
+            </div>
+
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <div class="collapsible-header-left">
+                  <span class="collapsible-icon">▶</span>
+                  <span class="collapsible-title">C. Sensors, Resolution &amp; Tasking</span>
+                </div>
+              </div>
+              <div class="collapsible-body">
+                <label>Sensor type &amp; modality <span class="required">*</span>
+                  <textarea name="eo_sensor_type" rows="3"
+                    placeholder="Optical, SAR, hyperspectral, thermal, RF, etc." required></textarea>
+                </label>
+                <div class="form-grid-2">
+                  <label>Spatial resolution (PAN / MS / SAR) <span class="required">*</span>
+                    <input type="text" name="eo_resolution" placeholder="e.g. 0.5 m PAN / 2 m MS / 1 m SAR" required>
+                  </label>
+                  <label>Swath width &amp; revisit over Pakistan <span class="required">*</span>
+                    <input type="text" name="eo_swath" required>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <div class="collapsible-header-left">
+                  <span class="collapsible-icon">▶</span>
+                  <span class="collapsible-title">D. Pakistan Imaging &amp; Restrictions</span>
+                </div>
+              </div>
+              <div class="collapsible-body">
+                <label>Intended imaging over Pakistan <span class="required">*</span>
+                  <textarea name="eo_pak_imaging" rows="3" required></textarea>
+                </label>
+                <label>Geofencing / blackout zones / tasking restrictions <span class="required">*</span>
+                  <textarea name="eo_restrictions" rows="3" required></textarea>
+                </label>
+              </div>
+            </div>
+
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <div class="collapsible-header-left">
+                  <span class="collapsible-icon">▶</span>
+                  <span class="collapsible-title">E. Data Handling &amp; Distribution</span>
+                </div>
+              </div>
+              <div class="collapsible-body">
+                <label>Data products &amp; processing chain <span class="required">*</span>
+                  <textarea name="eo_products" rows="3" required></textarea>
+                </label>
+                <label>Primary data centres / locations <span class="required">*</span>
+                  <textarea name="eo_data_centres" rows="3" required></textarea>
+                </label>
+                <label>Pakistan-related data in sensitive jurisdictions?
+                  <select name="eo_sensitive_juris" required>
+                    <option value="">Select…</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes (details below)</option>
+                  </select>
+                </label>
+                <label>If yes, details &amp; mitigation
+                  <textarea name="eo_sensitive_juris_details" rows="3"></textarea>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <span class="status-chip">Draft status: <span>Not submitted</span></span>
+              <button type="submit" class="btn btn-primary">Submit EO application (demo)</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- PNT PANEL -->
+        <div class="app-panel" data-sector="pnt">
+          <div class="app-panel-header">
+            <div>
+              <div class="app-panel-title">PNT / GNSS Landing Rights Authorization</div>
+              <div class="app-panel-sub">
+                For PNT signals and augmentation services providing positioning, navigation and timing within Pakistan.
+              </div>
+            </div>
+            <div class="app-tag">Sector color: PNT – purple</div>
+          </div>
+
+          <form id="pntForm">
+            <div class="collapsible open">
+              <div class="collapsible-header">
+                <div class="collapsible-header-left">
+                  <span class="collapsible-icon">▶</span>
+                  <span class="collapsible-title">A. System Overview</span>
+                </div>
+              </div>
+              <div class="collapsible-body">
+                <div class="form-grid-2">
+                  <label>PNT / GNSS system name <span class="required">*</span>
+                    <input type="text" name="pnt_system_name" required>
+                  </label>
+                  <label>Constellation type <span class="required">*</span>
+                    <input type="text" name="pnt_constellation_type"
+                           placeholder="Global / regional / augmentation only…" required>
+                  </label>
+                </div>
+                <label>Service categories in Pakistan <span class="required">*</span>
+                  <textarea name="pnt_service_categories" rows="3"
+                    placeholder="Open service, authenticated, high-precision, timing-only, etc."
+                    required></textarea>
+                </label>
+              </div>
+            </div>
+
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <div class="collapsible-header-left">
+                  <span class="collapsible-icon">▶</span>
+                  <span class="collapsible-title">B. Signals &amp; Augmentation</span>
+                </div>
+              </div>
+              <div class="collapsible-body">
+                <label>Frequency bands &amp; signal structures <span class="required">*</span>
+                  <textarea name="pnt_signals" rows="3" required></textarea>
+                </label>
+                <label>Augmentation architecture (SBAS / GBAS / RTK / PPP)
+                  <textarea name="pnt_augmentation_arch" rows="3"></textarea>
+                </label>
+                <label>Anti-jamming, anti-spoofing &amp; integrity mechanisms <span class="required">*</span>
+                  <textarea name="pnt_security_features" rows="3" required></textarea>
+                </label>
+              </div>
+            </div>
+
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <div class="collapsible-header-left">
+                  <span class="collapsible-icon">▶</span>
+                  <span class="collapsible-title">C. Pakistan Coverage &amp; Critical Infrastructure</span>
+                </div>
+              </div>
+              <div class="collapsible-body">
+                <label>PNT coverage &amp; performance over Pakistan <span class="required">*</span>
+                  <textarea name="pnt_pak_coverage" rows="3" required></textarea>
+                </label>
+                <label>Use in aviation / maritime / critical infrastructure
+                  <textarea name="pnt_critical_infra" rows="3"></textarea>
+                </label>
+                <label>Monitoring &amp; anomaly reporting
+                  <textarea name="pnt_monitoring" rows="3" required></textarea>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <span class="status-chip">Draft status: <span>Not submitted</span></span>
+              <button type="submit" class="btn btn-primary">Submit PNT application (demo)</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- SPACE TRANSPORT PANEL -->
+        <div class="app-panel" data-sector="space-trans">
+          <div class="app-panel-header">
+            <div>
+              <div class="app-panel-title">Space Transportation Authorization</div>
+              <div class="app-panel-sub">
+                For launch, re-entry and associated operations with a nexus to Pakistan (payloads, stages, operators).
+              </div>
+            </div>
+            <div class="app-tag">Sector color: Space Transportation – orange</div>
+          </div>
+
+          <form id="spaceTransForm">
+            <div class="collapsible open">
+              <div class="collapsible-header">
+                <div class="collapsible-header-left">
+                  <span class="collapsible-icon">▶</span>
+                  <span class="collapsible-title">A. Mission Overview</span>
+                </div>
+              </div>
+              <div class="collapsible-body">
+                <div class="form-grid-2">
+                  <label>Authorization type <span class="required">*</span>
+                    <select name="st_auth_type" required>
+                      <option value="">Select…</option>
+                      <option value="launch">Launch</option>
+                      <option value="reentry">Re-entry</option>
+                      <option value="launch_reentry">Launch &amp; re-entry</option>
+                    </select>
+                  </label>
+                  <label>Mission name / identifier <span class="required">*</span>
+                    <input type="text" name="st_mission_name" required>
+                  </label>
+                </div>
+                <div class="form-grid-2">
+                  <label>Launch vehicle <span class="required">*</span>
+                    <input type="text" name="st_vehicle" required>
+                  </label>
+                  <label>Launch site / country <span class="required">*</span>
+                    <input type="text" name="st_launch_site" required>
+                  </label>
+                  <label>Planned launch window (dates) <span class="required">*</span>
+                    <input type="text" name="st_launch_window" required>
+                  </label>
+                  <label>Primary payload(s) &amp; purpose <span class="required">*</span>
+                    <textarea name="st_payload" rows="2" required></textarea>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <div class="collapsible-header-left">
+                  <span class="collapsible-icon">▶</span>
+                  <span class="collapsible-title">B. Trajectory, Risk &amp; Safety</span>
+                </div>
+              </div>
+              <div class="collapsible-body">
+                <label>Mission trajectory &amp; overflight description <span class="required">*</span>
+                  <textarea name="st_trajectory" rows="3" required></textarea>
+                </label>
+                <label>Casualty risk assessment &amp; debris footprint <span class="required">*</span>
+                  <textarea name="st_risk_assessment" rows="3" required></textarea>
+                </label>
+                <label>Launch safety &amp; range safety measures <span class="required">*</span>
+                  <textarea name="st_safety_measures" rows="3" required></textarea>
+                </label>
+              </div>
+            </div>
+
+            <div class="collapsible">
+              <div class="collapsible-header">
+                <div class="collapsible-header-left">
+                  <span class="collapsible-icon">▶</span>
+                  <span class="collapsible-title">C. Liability, Insurance &amp; Debris Mitigation</span>
+                </div>
+              </div>
+              <div class="collapsible-body">
+                <label>Third-party liability insurance details <span class="required">*</span>
+                  <textarea name="st_insurance" rows="3" required></textarea>
+                </label>
+                <label>Debris mitigation plan <span class="required">*</span>
+                  <textarea name="st_debris_plan" rows="3" required></textarea>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <span class="status-chip">Draft status: <span>Not submitted</span></span>
+              <button type="submit" class="btn btn-primary">Submit Space Transportation application (demo)</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- NOTICES -->
+  <section id="notices" aria-labelledby="notices-heading">
+    <h2 id="notices-heading">Public notices and consultations</h2>
+    <p class="section-intro">
+      Draft regulations, consultations, decisions and tenders are published here with clear timelines and
+      participation instructions.
+    </p>
+
+    <ul class="notice-list">
+      <li class="notice-item">
+        <div>
+          <div class="notice-title">Information on Space Sector Regulations in Pakistan</div>
+          <div class="notice-meta">
+            Public notice summarizing the regulatory framework for satellite operators and service providers.
+          </div>
+        </div>
+        <span class="badge-status final">Notice</span>
+      </li>
+      <li class="notice-item">
+        <div>
+          <div class="notice-title">Draft Satcom Landing Rights Regulations 2025</div>
+          <div class="notice-meta">
+            Comments invited until [date]. Submissions should be provided in writing to the specified email address.
+          </div>
+        </div>
+        <span class="badge-status draft">Draft for consultation</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" aria-labelledby="about-heading">
+    <h2 id="about-heading">About PSARB</h2>
+    <p class="section-intro">
+      PSARB functions as the principal regulatory body for outer space and upper-atmosphere activities with a Pakistani
+      nexus, supporting national security, technological development and commercial use of space.
+    </p>
+
+    <div class="card">
+      <p style="margin:0 0 6px;">
+        PSARB is responsible for:
+      </p>
+      <ul class="clean">
+        <li>Authorizing and supervising space activities involving Pakistan, including satellite operations and launch activities.</li>
+        <li>Issuing registrations, authorizations and related decisions for operators and systems.</li>
+        <li>Ensuring compliance with national law, international commitments and technical standards.</li>
+        <li>Coordinating with national bodies responsible for spectrum, telecommunications, broadcasting and security.</li>
+        <li>Supporting a predictable and transparent regulatory environment for investment in Pakistan’s space economy.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" aria-labelledby="contact-heading">
+    <h2 id="contact-heading">Contact</h2>
+    <p class="section-intro">
+      For regulatory enquiries and submissions, operators may use the contact form below or write directly to the
+      sector-specific addresses.
+    </p>
+
+    <div class="contact-grid">
+      <div class="card">
+        <h3>Sector contacts</h3>
+        <ul class="clean">
+          <li>Satcom: <a href="mailto:satcom@psarb.gov.pk">satcom@psarb.gov.pk</a></li>
+          <li>Earth Observation (EO): <a href="mailto:eo@psarb.gov.pk">eo@psarb.gov.pk</a></li>
+          <li>PNT services: <a href="mailto:pnt@psarb.gov.pk">pnt@psarb.gov.pk</a></li>
+          <li>Space Transportation &amp; Launch: <a href="mailto:launch@psarb.gov.pk">launch@psarb.gov.pk</a></li>
+          <li>General queries: <a href="mailto:info@psarb.gov.pk">info@psarb.gov.pk</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Enquiry form</h3>
+        <form class="contact-form"
+              onsubmit="event.preventDefault(); alert('Demo only – connect to backend or email gateway in production.');">
+          <label for="enquiryType">Type of enquiry</label>
+          <select id="enquiryType" name="enquiryType">
+            <option value="">Select...</option>
+            <option>Registration</option>
+            <option>Satcom authorization</option>
+            <option>EO authorization</option>
+            <option>PNT authorization</option>
+            <option>Space Transportation</option>
+            <option>General</option>
+          </select>
+
+          <label for="name">Name</label>
+          <input id="name" type="text" placeholder="Your full name">
+
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="you@example.com">
+
+          <label for="message">Message</label>
+          <textarea id="message" placeholder="Brief description of your query"></textarea>
+
+          <button type="submit" class="btn btn-primary">Submit enquiry (demo)</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer aria-label="Site footer">
+    <span>© 2025 Pakistan Space Activities Regulatory Board (PSARB)</span>
+    <span>Legal | Privacy | Accessibility</span>
+  </footer>
+</main>
+
+<script>
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+      });
+    });
+  }
+
+  // Application tabs
+  const tabs = document.querySelectorAll('.app-tab');
+  const panels = document.querySelectorAll('.app-panel');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const sector = tab.getAttribute('data-sector');
+
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+
+      tab.classList.add('active');
+      document.querySelector('.app-panel[data-sector="' + sector + '"]').classList.add('active');
+
+      const shell = document.querySelector('.app-shell');
+      if (shell) {
+        window.scrollTo({
+          top: shell.offsetTop - 80,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // Collapsible sections
+  document.querySelectorAll('.collapsible').forEach(section => {
+    const header = section.querySelector('.collapsible-header');
+    const body = section.querySelector('.collapsible-body');
+
+    header.addEventListener('click', () => {
+      const isOpen = section.classList.contains('open');
+      const fullHeight = body.scrollHeight;
+
+      if (isOpen) {
+        body.style.maxHeight = body.offsetHeight + 'px';
+        requestAnimationFrame(() => {
+          body.style.maxHeight = '0';
+        });
+        section.classList.remove('open');
+      } else {
+        body.style.maxHeight = fullHeight + 'px';
+        section.classList.add('open');
+      }
+    });
+
+    // Initialize open sections
+    if (section.classList.contains('open')) {
+      body.style.maxHeight = body.scrollHeight + 'px';
+    }
+  });
+
+  // Simple demo submit handlers
+  ['satcomForm', 'eoForm', 'pntForm', 'spaceTransForm'].forEach(id => {
+    const form = document.getElementById(id);
+    if (!form) return;
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      alert('Form "' + id + '" submitted (demo). Connect this to your backend in production.');
+    });
+  });
+</script>
+
+</body>
+</html>
